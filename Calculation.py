@@ -21,6 +21,7 @@ ON
 GROUP BY 
     psb."POL_STN_NM",
     psb."AREA";"""
+'''
 df_crime=pd.read_sql(query1,engine)
 ps_area=df_crime['area'].to_numpy()
 ps_area=ps_area.astype(float)
@@ -30,9 +31,10 @@ weight1=weight1.reshape(7,1)
 answer1=np.matmul(crime,weight1)
 answer1=answer1.reshape(180,)/ps_area 
 # print(np.shape(answer1))
-df_crime=df_crime.insert(9,'f1',answer1)
-
-print(df_crime)
+df_crime["f1"]=answer1
+df_crime.to_sql("police_station_crime",engine)
+'''
+#print(df_crime)
 # print(answer1)
 query2="""SELECT "DISTRICT" , 
 "dist_area",
@@ -59,9 +61,11 @@ simple_injured=df_accident['simple_injured'].to_numpy()
 non_injury_count=df_accident['non_injury_count'].to_numpy()
 answer2=(3*fatal_count*(fatal_injured+fatal_killed)+2*simple_count*(simple_injured)+(non_injury_count))/10**4
 answer2=answer2/dist_area
-print(np.shape(answer2))
-print(answer2)
-print(df_accident.tail(2))
+df_accident["f2"]=answer2
+df_accident.to_sql("df_accident_f2",engine)
+#print(np.shape(answer2))
+#print(answer2)
+#print(df_accident.tail(2))
 
 def f2(df):
     pass
