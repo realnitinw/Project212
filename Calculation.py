@@ -59,9 +59,9 @@ simple_injured=df_accident['simple_injured'].to_numpy()
 non_injury_count=df_accident['non_injury_count'].to_numpy()
 answer2=(3*fatal_count*(fatal_injured+fatal_killed)+2*simple_count*(simple_injured)+(non_injury_count))/10**4
 answer2=answer2/dist_area
-print(np.shape(answer2))
-print(answer2)
-print(df_accident.tail(2))
+# print(np.shape(answer2))
+# print(answer2)
+# print(df_accident.tail(2))
 
 def f2(df):
     pass
